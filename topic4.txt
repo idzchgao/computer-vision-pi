@@ -1,0 +1,83 @@
+# Change directory to object_detection for rpi
+cd examples/lite/examples/object_detection/raspberry_pi
+
+# Install dependencies required by the sample
+sh setup.sh
+
+# Run the object detection sample
+python detect.py
+
+--------------------
+
+# Yolo5 installation
+cd
+git clone https://github.com/ultralytics/yolov5  
+
+cd yolov5
+pip install -r requirements.txt  
+
+#inference with detect.py
+python detect.py --source 0
+
+#installation yolov5lite
+https://tfhub.dev/neso613/lite-model/yolo-v5-tflite/tflite_model/1 
+
+#go to yolov5 directory
+cd yolov5
+
+#copy the model from downloads folder to yolov5 directory
+cp ~/Downloads/lite-model_yolo-v5-tflite_tflite_model_1.tflite .
+
+# Make a copy of detect.py
+cp detect.py detect-lite.py
+
+#open detect-lite.py file
+#change line 216 
+parser.add_argument('--imgsz', '--img', '--img-size', nargs='+', type=int, default=[320], help='inference size h,w')
+
+# Install tensorflow and tflite-runtime
+python -m pip install --upgrade https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.12.0-py3-none-any.whl
+
+pip install tflite-runtime
+
+#run yolov5lite model
+python detect-lite.py --source 0 --weights lite-model_yolo-v5-tflite_tflite_model_1.tflite
+
+---------------------
+
+# Download one of the tflite object detection model from TF Hub Eg
+https://tfhub.dev/tensorflow/lite-model/efficientdet/lite4/detection/metadata/2
+
+# Change directory Eg 
+cd examples/lite/examples/object_detection/raspberry_pi
+cp ~/Downloads/lite-model_efficientdet_lite4_detection_metadata_2.tflite .
+
+#Run object detection model Eg 
+python detect.py --model lite-model_efficientdet_lite4_detection_metadata_2.tflite
+
+--------------------
+
+# change directory to image_segmentation for rpi
+cd examples/lite/examples/image_segmentation/raspberry_pi/
+
+# Install dependencies required by the sample
+sh setup.sh
+
+# Run the object detection sample
+python segment.py
+
+--------------------
+
+# Download model
+https://tfhub.dev/sayakpaul/lite-model/mobilenetv2-dm05-coco/int8/1 
+
+# Change directory
+cd examples/lite/examples/image_segmentation/raspberry_pi/
+
+# Copy file to Image Segmentation folder
+cp ~/Downloads/lite-model_mobilenetv2-dm05-coco_int8_1.tflite .
+
+# Running mobilenetv2 model
+python segment.py --model lite-model_mobilenetv2-dm05-coco_int8_1.tflite
+
+
